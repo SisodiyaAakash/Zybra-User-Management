@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <div className="flex items-start">
-          <div className="w-full md:pl-52 lg:pl-64 flex flex-col min-h-screen">
+          <div className="w-full flex flex-col min-h-screen">
             <Header />
             {children}
           </div>

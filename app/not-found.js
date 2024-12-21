@@ -19,9 +19,9 @@ export default function EditProduct() {
           Sorry, we couldn’t find the page you’re looking for.
           <br />
           <span className="text-sm">
-            Designed by{" "}
+            The project is designed by
             <a
-              className="text-[#2086BF] font-medium opacity-60 relative after:w-0 after:h-0.5 after:bg-[#2086BF] after:absolute after:left-0 after:bottom-0 hover:opacity-100 hover:after:w-full hover:after:right-0 after:duration-500"
+              className="ml-1 text-[#2086BF] font-medium opacity-60 relative after:w-0 after:h-0.5 after:bg-[#2086BF] after:absolute after:left-0 after:bottom-0 hover:opacity-100 hover:after:w-full hover:after:right-0 after:duration-500"
               href="https://github.com/SisodiyaAakash/zybra"
             >
               Aakash Sisodiya
