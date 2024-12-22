@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function GradientLoadingSpinner() {
   return (
@@ -18,6 +18,27 @@ function GradientLoadingSpinner() {
         <div className="absolute h-16 w-16 rounded-full animate-spin border-t-4 border-blue-500"></div>
         <div className="absolute h-12 w-12 rounded-full animate-spin border-t-4 border-red-500 border-opacity-75"></div>
       </div>
+    </div>
+  );
+}
+
+function ErrorAlert({ message }) {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <div className="flex items-center gap-2 fixed top-5 right-5 z-50 min-w-max max-w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded animate-slide-in">
+      <strong className="font-bold">Error!</strong>
+      <span className="block sm:inline">{message}</span>
     </div>
   );
 }
@@ -114,14 +135,12 @@ export default function Dashboard() {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  if (error) {
+    return <ErrorAlert message={error.message} />;
+  }
   if (isLoading) {
     return <GradientLoadingSpinner />;
   }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">
@@ -207,7 +226,7 @@ export default function Dashboard() {
         <button
           onClick={() => setPageIndex((old) => Math.max(old - 1, 0))}
           disabled={pageIndex === 0}
-          className="bg-[#2086BF] hover:bg-transparent text-white hover:text-[#2086BF] border-[#2086BF] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200"
+          className="bg-[#2086BF] hover:bg-transparent text-white hover:text-[#2086BF] border-[#2086BF] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200 dark:disabled:bg-gray-500 dark:disabled:text-gray-950 dark:disabled:border-gray-700"
         >
           Previous
         </button>
@@ -221,7 +240,7 @@ export default function Dashboard() {
             )
           }
           disabled={pageIndex === table.getPageCount() - 1}
-          className="bg-[#2086BF] hover:bg-transparent text-white hover:text-[#2086BF] border-[#2086BF] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200"
+          className="bg-[#2086BF] hover:bg-transparent text-white hover:text-[#2086BF] border-[#2086BF] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200 dark:disabled:bg-gray-500 dark:disabled:text-gray-950 dark:disabled:border-gray-700"
         >
           Next
         </button>
