@@ -124,7 +124,7 @@ export default function Dashboard() {
 
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+      <h1 className="text-3xl font-bold mb-6 text-center">
         Zybra User Management Dashboard
       </h1>
       <div className="relative mb-4">
@@ -133,10 +133,10 @@ export default function Dashboard() {
           value={globalFilter || ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
           placeholder="Search users..."
-          className="w-full p-3 pl-10 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-3 pl-10 border rounded-lg shadow-shadow1 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-transparent"
         />
         <svg
-          className="absolute left-3 top-3 h-5 w-5 text-gray-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
@@ -154,7 +154,7 @@ export default function Dashboard() {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
                 key={headerGroup.id}
-                className="bg-gradient-to-r from-gray-200 to-gray-400 text-black"
+                className="bg-gradient-to-r from-gray-200 to-gray-400 text-black dark:from-gray-800 dark:to-gray-900 dark:text-white"
               >
                 {headerGroup.headers.map((header) => (
                   <th
@@ -188,8 +188,10 @@ export default function Dashboard() {
               <tr
                 key={row.id}
                 className={`${
-                  rowIndex % 2 === 0 ? "bg-gray-50" : "bg-white"
-                } hover:bg-blue-100`}
+                  rowIndex % 2 === 0
+                    ? "bg-gray-50 dark:bg-gray-700"
+                    : "bg-white dark:bg-slate-800"
+                } hover:bg-blue-100 dark:hover:bg-black`}
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="border px-4 py-3 text-sm">
