@@ -6,8 +6,18 @@ This project is dashboard created as the practical assessment for the **Zybra Pr
 
 ---
 
-1. **Responsive Design**
+1. **Data Fetching**
+
+   - Utilized **@tanstack/react-query** to retrieve data from the provided API URL and displayed it in the table format.
+
+2. **Table Features**
+
+   - Utilized **@tanstack/react-table** for table features such as Sorting, Search, Pagination.
+
+3. **Responsive Design**
    - Fully responsive UI using **Tailwind CSS**.
+   - Included a loading state and error handling UI.
+   - I was not able to utilize Shadcn for the User Interface and Components, I tried however I have never untilized it so far so due to time constraints I need to avoid it and used Tailwind instead.
 
 ---
 
@@ -16,6 +26,7 @@ This project is dashboard created as the practical assessment for the **Zybra Pr
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Deployment**: [Vercel](https://vercel.com/)
+- **Dependencies**: @tanstack/react-query & @tanstack/react-table
 
 ---
 
@@ -76,6 +87,12 @@ The project is hosted on **Vercel** for live preview and continuous deployment. 
 ## Acknowledgement
 
 This project was built as part of an exciting challenge provided by **Recruiter** from **Zybra Private Limited**. Thank you for this amazing learning opportunity!
+
+I've utilized almost everything and developed the project nearly same as outlined requirement provided by you via Whatsap as a URL of [Notion](https://nifty-stop-803.notion.site/Frontend-Developer-Task-162d498ae64d809ba441dfdb385b7347).
+
+There are few things that is not utilized due to time constraints and due to lack of my knowledge in those particular area like I've utilized Tailwind instead of Shadcn.
+
+Thanks & Regards,
 
 ---
 
