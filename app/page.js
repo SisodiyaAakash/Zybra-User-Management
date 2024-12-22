@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { useState } from "react";
 
@@ -86,6 +87,8 @@ export default function Dashboard() {
   // Set up the table instance
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize, setPageSize] = useState(5); // Adjust page size
 
   const table = useReactTable({
     data: data || [],
@@ -93,12 +96,22 @@ export default function Dashboard() {
     state: {
       sorting,
       globalFilter,
+      pagination: {
+        pageIndex,
+        pageSize,
+      },
     },
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
+    onPaginationChange: (updater) => {
+      const newState = updater(table.getState());
+      setPageIndex(newState.pagination.pageIndex);
+      setPageSize(newState.pagination.pageSize);
+    },
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   if (isLoading) {
@@ -110,7 +123,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
+    <div className="w-full max-w-6xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
         Zybra User Management Dashboard
       </h1>
@@ -149,7 +162,7 @@ export default function Dashboard() {
                     onClick={header.column.getToggleSortingHandler()}
                     className="border px-4 py-3 text-left text-sm font-semibold uppercase cursor-pointer"
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-2">
                       <span>
                         {header.isPlaceholder
                           ? null
@@ -157,7 +170,7 @@ export default function Dashboard() {
                           ? header.column.columnDef.header()
                           : header.column.columnDef.header}
                       </span>
-                      <span className="w-4 h-4">
+                      <span className="min-w-4 min-h-4">
                         {header.column.getIsSorted() === "asc"
                           ? "🔼"
                           : header.column.getIsSorted() === "desc"
@@ -187,6 +200,29 @@ export default function Dashboard() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={() => setPageIndex((old) => Math.max(old - 1, 0))}
+          disabled={pageIndex === 0}
+          className="bg-[#2086BF] hover:bg-transparent text-white hover:text-[#2086BF] border-[#2086BF] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200"
+        >
+          Previous
+        </button>
+        <span>
+          Page {pageIndex + 1} of {table.getPageCount()}
+        </span>
+        <button
+          onClick={() =>
+            setPageIndex((old) =>
+              old < table.getPageCount() - 1 ? old + 1 : old
+            )
+          }
+          disabled={pageIndex === table.getPageCount() - 1}
+          className="bg-[#2086BF] hover:bg-transparent text-white hover:text-[#2086BF] border-[#2086BF] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
