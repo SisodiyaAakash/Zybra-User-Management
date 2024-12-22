@@ -10,6 +10,17 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 
+function GradientLoadingSpinner() {
+  return (
+    <div className="flex justify-center items-center h-96">
+      <div className="relative flex items-center justify-center">
+        <div className="absolute h-16 w-16 rounded-full animate-spin border-t-4 border-blue-500"></div>
+        <div className="absolute h-12 w-12 rounded-full animate-spin border-t-4 border-red-500 border-opacity-75"></div>
+      </div>
+    </div>
+  );
+}
+
 export default function Dashboard() {
   // Fetch data using React Query
   const { data, isLoading, error } = useQuery({
@@ -91,7 +102,7 @@ export default function Dashboard() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <GradientLoadingSpinner />;
   }
 
   if (error) {
@@ -100,8 +111,8 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-3xl font-extrabold mb-6 text-center text-gray-800">
-        User Management Dashboard
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        Zybra User Management Dashboard
       </h1>
       <div className="relative mb-4">
         <input
